@@ -1,6 +1,7 @@
 # Importação de bibliotecas
 import datetime
 from datetime import timedelta
+from dateutil.relativedelta import relativedelta
 from airflow import DAG
 from airflow.operators.dummy import DummyOperator
 from airflow.operators.python_operator import PythonOperator
@@ -9,10 +10,9 @@ from airflow.contrib.operators.bigquery_operator import BigQueryOperator
 from Class import Class_coleta as coleta
 from Class import Class_validacao as valida
 from Class import Class_persiste as persiste
-from dateutil.relativedelta import relativedelta
 
 
-# Variáveis
+# Variáveis default da dag
 default_args = {
     'owner': 'sarah braga',
     'retries': 0,
@@ -30,8 +30,18 @@ ano = data.year
 if mes >=1 and mes <= 9:
     mes = '0' + str(mes)
 
+ # Variavel auxiliar para inserção de dados
 busca = str(ano) + str(mes)
 
+#------------------------------------------------------------#
+# Descrição: Função responsável por criar as tasks Python
+# Parâmetros:
+# 1- Id da task
+# 2- Função Python que será chamada
+# 3- argumentos que serão enviados
+# 4- Define se a job irá passar/puxar dados de outras tasks
+# 5- Inicialização da dag
+#------------------------------------------------------------#
 def create_task(name, function, kwargs, dag):
     return PythonOperator(
          task_id=str(name)
@@ -56,13 +66,13 @@ with DAG(
         # Dummy para marcar o início da dag
         init = DummyOperator(task_id='init')
 
-        # Coleta os dados de 3 meses atrás na API
+        # Coleta os dados de 3 meses atrás na API -- Utilizado pois a API possui dados somente até Novembro de 2022
         coletaDadosMes1 = create_task("coletaDadosMes1", coleta.Coleta.coleta_dados, {"meses": 3}, dag)
 
-        # Coleta os dados de 4 meses atrás na API
+        # Coleta os dados de 4 meses atrás na API -- Utilizado pois a API possui dados somente até Novembro de 2022
         coletaDadosMes2 = create_task("coletaDadosMes2", coleta.Coleta.coleta_dados, {"meses": 4}, dag)
 
-        # Coleta os dados de 5 meses atrás na API
+        # Coleta os dados de 5 meses atrás na API -- Utilizado pois a API possui dados somente até Novembro de 2022
         coletaDadosMes3 = create_task("coletaDadosMes3", coleta.Coleta.coleta_dados, {"meses": 5}, dag)
 
         # Valida o retorno da API
