@@ -25,7 +25,7 @@ class Coleta:
                 mes = '0' + str(mes)
 
             # Realiza a busca
-            url = str('https://opendata.nhsbsa.net/api/3/action/datastore_search?resource_id=EPD_' + str(ano) + str(mes) + '&limit=10') 
+            url = str('https://opendata.nhsbsa.net/api/3/action/datastore_search?resource_id=EPD_' + str(ano) + str(mes) + '&limit=100') 
             fileobj = urllib.request.urlopen(url)
             json = fileobj.read().decode('utf-8')
 
