@@ -42,7 +42,7 @@ class PersisteDados:
             # Insere dataframe 
             pandas_gbq.to_gbq(
                 dataframe = dados,
-                destination_table = 'pipeline.' + tabela,
+                destination_table = 'bronze.' + tabela,
                 project_id='molten-complex-377821',
                 if_exists='append'
             )
@@ -56,7 +56,7 @@ class PersisteDados:
     # Descrição: Controla o fluxo de persistência dos dados
     # Parâmetros: -
     # ------------------------------------------------------------------- #
-    def main(ti=None):
+    def insereBronze(ti=None):
 
         dados1 = ti.xcom_pull(key='result_coleta_mes_3', task_ids='coletaDadosMes1')
         dados2 = ti.xcom_pull(key='result_coleta_mes_4', task_ids='coletaDadosMes2')
@@ -70,13 +70,5 @@ class PersisteDados:
         # Concatena
         df = pd.concat([df1, df2, df3], ignore_index=True)
 
-        # Construindo o dataframe de prescribers - Quem prescreveu a receita
-        df_prescribers = df[['PRACTICE_NAME', 'PRACTICE_CODE']]
-        df_prescribers = df_prescribers.drop_duplicates()
-
-        # Construindo o dataframe de prescriptions - Contém todas as informações sobre a receita
-        df_prescriptions = df
-
         # Persiste os dados no BigQuery
-        PersisteDados.insere_dataframe(df_prescribers, 'TB_PRESCRIBERS')
-        PersisteDados.insere_dataframe(df_prescriptions, 'TB_PRESCRIPTIONS')
+        PersisteDados.insere_dataframe(df, 'TB_ANALITICO_PRESCRIPTIONS')
