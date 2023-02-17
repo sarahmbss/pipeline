@@ -29,7 +29,9 @@ Logo após a coleta inicial dos dados, a pipeline foi modificada para a seguinte
 
 ![Pipeline de dados no Airflow](https://github.com/sarahmbss/pipeline/blob/main/Docs/arquitetura-nova.png)
 
-A única modificação realizada foi em relação à coleta de dados. Ao invés de coletar sempre os últimos 3 meses, ela coleta apenas o último mês. Todo o processo de validação e persistência permanece o mesmo.
+A única modificação realizada foi em relação à coleta de dados. Ao invés de coletar sempre os últimos 3 meses, ela coleta apenas o último mês. Todo o processo de validação e persistência permanece o mesmo. Uma observação em relação à isso, é que o script está preparado para coletar os dados do último mês, porém como a API não possui dados desse período, ele não insere nenhum dado nas tabelas!
+
+Os dados presentes foram aqueles inseridos na coleta dos 3 últimos meses mencionados anteriormente.
 
 ### Forma de utilização do pipeline
 
