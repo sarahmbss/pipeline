@@ -36,5 +36,5 @@ Os dados presentes foram aqueles inseridos na coleta dos 3 últimos meses mencio
 ### Forma de utilização do pipeline
 
 - O projeto construído no GCP foi compartilhado no email. Logo após aceitar o convite, é possível acessar a interface visual do Airflow por meio do link https://console.cloud.google.com/composer/environments?referrer=search&project=molten-complex-377821
-- Os códigos utilizadas no Airflow estão disponíveis aqui no GitHub e também no Storage no seguinte link https://console.cloud.google.com/storage/browser/southamerica-east1-pipeline-de43fe0d-bucket/dags?project=molten-complex-377821
+- Os códigos utilizadas no Airflow estão disponíveis aqui no GitHub e também no Storage no seguinte link https://console.cloud.google.com/storage/browser/southamerica-east1-pipeline-de43fe0d-bucket/dags?hl=pt-br&project=molten-complex-377821&pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=false
 - Em relação ao BigQuery, é possível visualizar as tabelas e resultados das queries no link  https://console.cloud.google.com/bigquery?referrer=search&project=molten-complex-377821&ws=!1m0
