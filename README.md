@@ -25,7 +25,7 @@ Para realização do desafio, inicialmente foi implementada a seguinte pipeline 
   - Para a inserção das *prescriptions*, os dados são inseridos somente se forem novos, ou seja, coletados no último mês. Essa etapa é feita por meio da task *BigQueryOperator* do Airflow;
   - Para a inserção dos *prescribers* é verificado se os coletados no último mês, já existem na tabela. Se não, são inseridos, se sim, não são inseridos. Essa etapa é feita por meio da task *BigQueryInsertJobOperator* do Airflow.
 
-Logo após a coleta inicial dos dados, a pipeline foi modificada para a seguinte estrutura:
+Logo após a coleta inicial dos dados, a pipeline foi modificada para a seguinte estrutura, que roda automaticamente dia 01 de cada mês às 8h:
 
 ![Pipeline de dados no Airflow](https://github.com/sarahmbss/pipeline/blob/main/Docs/arquitetura-nova.png)
 
