@@ -58,17 +58,10 @@ class PersisteDados:
     # ------------------------------------------------------------------- #
     def insereBronze(ti=None):
 
-        dados1 = ti.xcom_pull(key='result_coleta_mes_3', task_ids='coletaDadosMes1')
-        dados2 = ti.xcom_pull(key='result_coleta_mes_4', task_ids='coletaDadosMes2')
-        dados3 = ti.xcom_pull(key='result_coleta_mes_5', task_ids='coletaDadosMes3')
+        dados1 = ti.xcom_pull(key='result_coleta_mes_1', task_ids='coletaDadosMes')
 
         # Cria os dataframes
-        df1 = PersisteDados.cria_dataframe(dados1)
-        df2 = PersisteDados.cria_dataframe(dados2)
-        df3 = PersisteDados.cria_dataframe(dados3)
-
-        # Concatena
-        df = pd.concat([df1, df2, df3], ignore_index=True)
+        df = PersisteDados.cria_dataframe(dados1)
 
         # Persiste os dados no BigQuery
         PersisteDados.insere_dataframe(df, 'TB_ANALITICO_PRESCRIPTIONS')
