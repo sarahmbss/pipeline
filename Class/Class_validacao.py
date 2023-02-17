@@ -12,8 +12,14 @@ class ValidaDados:
     # Parâmetros: dados retornados da consulta
     # ------------------------------------------------------ #
     def retorno_api(ti=None):
-        dados1 = ti.xcom_pull(key='result_coleta_mes_1', task_ids='coletaDadosMes1')
+        dados1 = ti.xcom_pull(key='result_coleta_mes_1', task_ids='coletaDadosMes')
         
+        # Arquivos utilizados na extração de 3 meses
+        #dados1 = ti.xcom_pull(key='result_coleta_mes_3', task_ids='coletaDadosMes1')
+        #dados2 = ti.xcom_pull(key='result_coleta_mes_4', task_ids='coletaDadosMes2')
+        #dados3 = ti.xcom_pull(key='result_coleta_mes_5', task_ids='coletaDadosMes3')
+        
+        # if (dados1 == None or dados2 == None or dados3 == None) or (dados1 == '400' or dados2 == '400' or dados3 == '400')
         if dados1 == None or dados1 == '400':
             print('Falha na coleta de dados! ')
             return '400'
@@ -27,7 +33,17 @@ class ValidaDados:
     def verifica_json(ti=None):
         try:
             dados1 = ti.xcom_pull(key='result_coleta_mes_1', task_ids='coletaDadosMes')
+            
+            # Arquivos utilizados na extração de 3 meses
+            #dados1 = ti.xcom_pull(key='result_coleta_mes_3', task_ids='coletaDadosMes1')
+            #dados2 = ti.xcom_pull(key='result_coleta_mes_4', task_ids='coletaDadosMes2')
+            #dados3 = ti.xcom_pull(key='result_coleta_mes_5', task_ids='coletaDadosMes3')
+            
             json_retorno_mes_1 = json.loads(dados1)
+            
+            # Código utilizado na extração de 3 meses
+            #json_retorno_mes_2 = json.loads(dados2)
+            #json_retorno_mes_3 = json.loads(dados3)
             return '200'
         except:
             print('Falha na transformação para json! Dados fora do padrão. ')
